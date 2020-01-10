@@ -23,6 +23,7 @@ func migrateAndSeed(ctx iris.Context) {
 	tables := []interface{}{
 		&models.APIBearer{},
 		&models.PasswordReset{},
+		&models.Payment{},
 		&models.Program{},
 		&models.ProgramRegistration{},
 		&models.Role{},
@@ -37,6 +38,9 @@ func migrateAndSeed(ctx iris.Context) {
 
 	// Seeder
 	models.APIBearerSeeder()
+	models.ProgramSeeder()
+	models.RoleSeeder()
+	models.UserSeeder()
 
 
 	_, _ = ctx.Writef("Status: Success \n")

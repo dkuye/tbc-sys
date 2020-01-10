@@ -1,6 +1,8 @@
 package models
 
 import (
+	"cg-pkg/database"
+	"cg-pkg/helper"
 	"time"
 )
 
@@ -10,7 +12,7 @@ type User struct {
 	LastName         string    `gorm:"not null"`
 	Email            string    `gorm:"not null;unique"`
 	Phone            string    `gorm:"not null;unique"`
-	Password         string    `gorm:"not null"`
+	Password         string    `sql:"DEFAULT:null"`
 	Gender           string    `gorm:"not null"`
 	MaritalStatus    string    `gorm:"not null"`
 	DateOfBirth      string    `sql:"DEFAULT:null"`
@@ -29,6 +31,7 @@ type User struct {
 	Education        string    `sql:"DEFAULT:null"`
 	ApiToken         string    `sql:"DEFAULT:null"`
 	RememberToken    string    `sql:"DEFAULT:null"`
+	Uuid             string    `gorm:"unique"json:"uuid"`
 	TimeStamp
 }
 
@@ -36,4 +39,23 @@ type TimeStamp struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time `sql:"index"`
+}
+
+const password = "$2a$14$qRiTUe/jeBYhey.LsKaXE.M5LHqdK2PDkeMKZ8hqWVD2roKhupkji"
+
+func UserSeeder() {
+	db := database.Connect()
+	defer db.Close()
+	db.Create(&User{
+		FirstName:        "Sys",
+		LastName:         "User",
+		Email:            "sys@tbcoutofzion.com",
+		Phone:            "08011223344",
+		Password:         password,
+		Gender:           "male",
+		MaritalStatus:    "married",
+		MembershipStatus: "Member",
+		Uuid:             helper.Unid(),
+	})
+
 }
