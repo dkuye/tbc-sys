@@ -3,6 +3,7 @@ package models
 import (
 	"cg-pkg/database"
 	"cg-pkg/helper"
+	"github.com/jinzhu/gorm"
 	"time"
 )
 
@@ -58,4 +59,38 @@ func UserSeeder() {
 		Uuid:             helper.Unid(),
 	})
 
+}
+
+func (u User) Create(db *gorm.DB) bool {
+	var existingUser User
+	db.Where(User{Email: u.Email}).Find(&existingUser)
+
+	var program Program
+	db.Last(&program)
+
+	if existingUser.Email != "" {
+
+		var existingRegistration ProgramRegistration
+		db.Where(ProgramRegistration{ ProgramID:program.ID, UserID:existingUser.ID }).First(&existingRegistration)
+		if existingRegistration.ID == 0 {
+			db.Create(&ProgramRegistration{ ProgramID:program.ID, UserID:existingUser.ID })
+		}
+
+		return false
+	}
+
+	newUser:= User{
+		FirstName:     u.FirstName,
+		LastName:      u.LastName,
+		Email:         u.Email,
+		Phone:         u.Phone,
+		Gender:        u.Gender,
+		MaritalStatus: u.MaritalStatus,
+		Uuid:          helper.Unid(),
+	}
+	db.Create(&newUser)
+
+	db.Create(&ProgramRegistration{ ProgramID:program.ID, UserID:newUser.ID })
+
+	return true
 }
