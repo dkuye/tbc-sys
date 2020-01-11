@@ -12,7 +12,7 @@ type User struct {
 	FirstName        string    `gorm:"not null"`
 	LastName         string    `gorm:"not null"`
 	Email            string    `gorm:"not null;unique"`
-	Phone            string    `gorm:"not null;unique"`
+	Phone            string    `gorm:"not null"`
 	Password         string    `sql:"DEFAULT:null"`
 	Gender           string    `gorm:"not null"`
 	MaritalStatus    string    `gorm:"not null"`
@@ -61,24 +61,12 @@ func UserSeeder() {
 
 }
 
-func (u User) Create(db *gorm.DB) bool {
+func (u User) Create(db *gorm.DB) User {
 	var existingUser User
 	db.Where(User{Email: u.Email}).Find(&existingUser)
-
-	var program Program
-	db.Last(&program)
-
 	if existingUser.Email != "" {
-
-		var existingRegistration ProgramRegistration
-		db.Where(ProgramRegistration{ ProgramID:program.ID, UserID:existingUser.ID }).First(&existingRegistration)
-		if existingRegistration.ID == 0 {
-			db.Create(&ProgramRegistration{ ProgramID:program.ID, UserID:existingUser.ID })
-		}
-
-		return false
+		return existingUser
 	}
-
 	newUser:= User{
 		FirstName:     u.FirstName,
 		LastName:      u.LastName,
@@ -89,8 +77,5 @@ func (u User) Create(db *gorm.DB) bool {
 		Uuid:          helper.Unid(),
 	}
 	db.Create(&newUser)
-
-	db.Create(&ProgramRegistration{ ProgramID:program.ID, UserID:newUser.ID })
-
-	return true
+	return newUser
 }

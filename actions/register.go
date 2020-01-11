@@ -3,38 +3,40 @@ package actions
 import (
 	"cg-pkg/database"
 	"encoding/json"
-	"fmt"
 	"github.com/kataras/iris"
 	"io/ioutil"
-	"log"
 	"tbc-sys/models"
 )
 
 func register(ctx iris.Context) {
 	b, err := ioutil.ReadAll(ctx.Request().Body)
 	if err != nil {
-		log.Println(err)
+		ctx.JSON(iris.Map{ "status":"failed", "message": err, })
 		return
 	}
 	var reg models.User
 	err = json.Unmarshal(b, &reg)
 	if err != nil {
-		fmt.Println("error:", err)
+		ctx.JSON(iris.Map{ "status":"failed", "message": err, })
 		return
 	}
 
 	db := database.Connect()
 	defer db.Close()
 
-	status := reg.Create(db)
+	user := reg.Create(db)
 
-	if status == false {
-		ctx.JSON(iris.Map{ "status":"failed", "message":"Got here.", })
+	var program models.Program
+	db.Last(&program)
+
+	var existingRegistration models.ProgramRegistration
+	db.Where(models.ProgramRegistration{ ProgramID:program.ID, UserID:user.ID }).First(&existingRegistration)
+	if existingRegistration.ID != 0 {
+		ctx.JSON(iris.Map{ "status":"failed", "message":"You are registered already.", })
 		return
 	}
 
-	ctx.JSON(iris.Map{
-		"status":"success",
-		"message":"Registration completed.",
-	})
+	db.Create(&models.ProgramRegistration{ ProgramID:program.ID, UserID:user.ID })
+
+	ctx.JSON(iris.Map{ "status":"success", "message":"Registration completed. Please make payment.",})
 }

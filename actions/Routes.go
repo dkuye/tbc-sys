@@ -13,6 +13,8 @@ func Routes(app *iris.Application) {
 	{
 		route.Use(middleware)
 		route.Post("/register", register)
+		route.Get("/payment-prep", paymentPrep)
+		route.Post("/payment-info", paymentInfo)
 	}
 
 }
