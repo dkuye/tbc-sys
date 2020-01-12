@@ -1,8 +1,8 @@
 package models
 
 import (
-	"cg-pkg/database"
-	"cg-pkg/helper"
+	"github.com/dkuye/database"
+	"github.com/dkuye/helper"
 	"github.com/gosimple/slug"
 	"time"
 )
@@ -25,7 +25,7 @@ func ProgramSeeder() {
 		Name: "Voltage Plug",
 		Slug: slug.Make("Voltage Plug"),
 		Year: "2019",
-		Uuid: helper.Unid(),
+		Uuid: helper.Uuid(),
 	})
 
 }

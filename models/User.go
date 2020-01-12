@@ -1,8 +1,8 @@
 package models
 
 import (
-	"cg-pkg/database"
-	"cg-pkg/helper"
+	"github.com/dkuye/database"
+	"github.com/dkuye/helper"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -56,7 +56,7 @@ func UserSeeder() {
 		Gender:           "male",
 		MaritalStatus:    "married",
 		MembershipStatus: "Member",
-		Uuid:             helper.Unid(),
+		Uuid:             helper.Uuid(),
 	})
 
 }
@@ -74,7 +74,7 @@ func (u User) Create(db *gorm.DB) User {
 		Phone:         u.Phone,
 		Gender:        u.Gender,
 		MaritalStatus: u.MaritalStatus,
-		Uuid:          helper.Unid(),
+		Uuid:          helper.Uuid(),
 	}
 	db.Create(&newUser)
 	return newUser

@@ -1,8 +1,8 @@
 package actions
 
 import (
-	"cg-pkg/database"
 	"fmt"
+	"github.com/dkuye/database"
 	"github.com/kataras/iris"
 	"strings"
 	"tbc-sys/models"

@@ -1,8 +1,8 @@
 package models
 
 import (
-	"cg-pkg/database"
-	"cg-pkg/helper"
+	"github.com/dkuye/database"
+	"github.com/dkuye/helper"
 	"os"
 )
 
@@ -23,6 +23,6 @@ func APIBearerSeeder() {
 		Name:   "Sys",
 		Key:    os.Getenv("API_KEY"),
 		Status: 1,
-		Uuid:   helper.Unid(),
+		Uuid:   helper.Uuid(),
 	})
 }

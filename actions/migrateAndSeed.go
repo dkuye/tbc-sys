@@ -1,9 +1,9 @@
 package actions
 
 import (
-	"cg-pkg/database"
-	"cg-pkg/helper"
 	"fmt"
+	"github.com/dkuye/database"
+	"github.com/dkuye/random"
 	"github.com/kataras/iris"
 	"os"
 	"tbc-sys/models"
@@ -45,7 +45,7 @@ func migrateAndSeed(ctx iris.Context) {
 
 	_, _ = ctx.Writef("Status: Success \n")
 	_, _ = ctx.Writef("Message: Migration and seeding done!\n")
-	_, _ = ctx.Writef("Reference: " + helper.RandomType{Upper:true, Number:true}.Gen(26) + "\n")
+	_, _ = ctx.Writef("Reference: " + random.String{Upper:true, Number:true}.Gen(26) + "\n")
 }
 
 

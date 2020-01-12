@@ -1,8 +1,8 @@
 package models
 
 import (
-	"cg-pkg/database"
-	"cg-pkg/helper"
+	"github.com/dkuye/database"
+	"github.com/dkuye/helper"
 	"github.com/gosimple/slug"
 )
 
@@ -24,12 +24,12 @@ func RoleSeeder() {
 		Name:     "Admin",
 		Slug:     slug.Make("admin"),
 		LongName: "Administrators",
-		Uuid:     helper.Unid(),
+		Uuid:     helper.Uuid(),
 	})
 	db.Create(&Role{
 		Name:     "Member",
 		Slug:     slug.Make("member"),
 		LongName: "Members",
-		Uuid:     helper.Unid(),
+		Uuid:     helper.Uuid(),
 	})
 }

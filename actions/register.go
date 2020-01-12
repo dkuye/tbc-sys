@@ -1,8 +1,8 @@
 package actions
 
 import (
-	"cg-pkg/database"
 	"encoding/json"
+	"github.com/dkuye/database"
 	"github.com/kataras/iris"
 	"io/ioutil"
 	"tbc-sys/models"

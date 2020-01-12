@@ -1,9 +1,9 @@
 package actions
 
 import (
-	"cg-pkg/database"
-	"cg-pkg/helper"
 	"encoding/json"
+	"github.com/dkuye/database"
+	"github.com/dkuye/helper"
 	"github.com/kataras/iris"
 	"io/ioutil"
 	"os"
@@ -72,7 +72,7 @@ func paymentInfo(ctx iris.Context)  {
 		UserID:      user.ID,
 		ProgramID:   program.ID,
 		Amount:      float64( helper.StringToInt(os.Getenv("REG_AMOUNT")) ),
-		Uuid:        helper.Unid(),
+		Uuid:        helper.Uuid(),
 	})
 
 	ctx.JSON(iris.Map{ "status": payment.Status, "message": payment.Message, })
