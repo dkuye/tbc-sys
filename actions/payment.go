@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/dkuye/database"
 	"github.com/dkuye/helper"
-	"github.com/kataras/iris"
+	"github.com/kataras/iris/v12"
 	"io/ioutil"
 	"os"
 	"tbc-sys/models"

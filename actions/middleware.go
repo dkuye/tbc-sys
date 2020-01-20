@@ -3,7 +3,7 @@ package actions
 import (
 	"fmt"
 	"github.com/dkuye/database"
-	"github.com/kataras/iris"
+	"github.com/kataras/iris/v12"
 	"strings"
 	"tbc-sys/models"
 )

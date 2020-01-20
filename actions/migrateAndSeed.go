@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/dkuye/database"
 	"github.com/dkuye/random"
-	"github.com/kataras/iris"
+	"github.com/kataras/iris/v12"
 	"os"
 	"tbc-sys/models"
 )

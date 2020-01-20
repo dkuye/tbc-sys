@@ -3,7 +3,7 @@ package actions
 import (
 	"encoding/json"
 	"github.com/dkuye/database"
-	"github.com/kataras/iris"
+	"github.com/kataras/iris/v12"
 	"io/ioutil"
 	"tbc-sys/models"
 )
