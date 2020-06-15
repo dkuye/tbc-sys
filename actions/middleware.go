@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/dkuye/database"
 	"github.com/kataras/iris/v12"
+	"impinj-server/models"
 	"strings"
-	"tbc-sys/models"
 )
 
 // Middleware is
@@ -25,7 +25,7 @@ func middleware(ctx iris.Context) {
 	defer db.Close()
 	apiBearer := models.APIBearer{}
 	where := map[string]interface{}{
-		"key": key,
+		"key":    key,
 		"status": 1,
 	}
 	db.Where(where).First(&apiBearer)

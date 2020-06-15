@@ -1,9 +1,9 @@
 package main
 
 import (
+	"impinj-server/actions"
 	"log"
 	"os"
-	"tbc-sys/actions"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/joho/godotenv"
@@ -23,9 +23,9 @@ func main() {
 
 	// Config CORS
 	crs := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8080", "http://tbc.deleosunmakinde.org", "http://app.tbcoutofzion.org", "http://api.tbcoutofzion.org", }, // allows everything, use that to change the hosts.
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"},
-		AllowedHeaders:   []string{"Cache-Control", "X-File-Name", "X-Requested-With", "X-File-Name", "Content-Type", "Authorization", "Set-Cookie", "Cookie"},
+		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
+		AllowedMethods:   []string{"*"},
+		AllowedHeaders:   []string{"*"},
 		AllowCredentials: true,
 	})
 

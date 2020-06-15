@@ -5,14 +5,14 @@ import (
 	"github.com/dkuye/database"
 	"github.com/dkuye/random"
 	"github.com/kataras/iris/v12"
+	"impinj-server/models"
 	"os"
-	"tbc-sys/models"
 )
 
 func migrateAndSeed(ctx iris.Context) {
 	env := os.Getenv("APP_ENV")
 	if env != "development" {
-		data := map[string]string{"status": "failed", "message": "Not right environment...",}
+		data := map[string]string{"status": "failed", "message": "Not right environment..."}
 		ctx.JSON(data)
 		return
 	}
@@ -42,16 +42,10 @@ func migrateAndSeed(ctx iris.Context) {
 	models.RoleSeeder()
 	models.UserSeeder()
 
-
 	_, _ = ctx.Writef("Status: Success \n")
 	_, _ = ctx.Writef("Message: Migration and seeding done!\n")
-	_, _ = ctx.Writef("Reference: " + random.String{Upper:true, Number:true}.Gen(26) + "\n")
+	_, _ = ctx.Writef("Reference: " + random.String{Upper: true, Number: true}.Gen(26) + "\n")
 }
-
-
-
-
-
 
 // OLD one
 /*func MigrateAndSeed(ctx iris.Context) {
